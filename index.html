@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <!-- General meta tags needed-->
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Needed for responsive design -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- If you want custom browser colors on mobile -->
+        <meta name="theme-color" content="#1843c1" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="#1843c1">
+
+        <title></title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet"> 
+        
+        <!-- Dependencies -->
+        <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="/node_modules/angular/angular.js"></script>
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        
+
+        <!-- CSS File -->
+        <link rel="stylesheet" href="dist/style.css?cb=1588578293609">
+        <link href="/css/main.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        
+    </head>
+    <body ng-app="tribal">
+
+        <div class="s130" ng-controller="SearchCtrl">
+
+            <div class="row">
+                <div class="col-12">
+                    <form>
+                        <div class="inner-form">
+                            <div class="input-field first-wrap">
+                                <div class="svg-wrapper">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                                    </svg>
+                                </div>
+                                <input id="search" type="text" placeholder="What are you looking for?" ng-model="search_str" />
+                            </div>
+                            <div class="input-field second-wrap">
+                                <button class="btn-search" type="button" ng-disabled="!search_str" ng-click="search()">
+                                    {{isLoading ? '': 'Search'}}
+                                    <div ng-if="isLoading" class="spinner-border  text-light" role="status"> </div>
+                                </button>
+                            </div>
+                        </div>
+                        <span class="info">ex. Music, Tv Show, Movie</span>
+                    </form>
+
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-9 mt-2 offset-xs-3" ng-repeat="item in media | orderBy:'collectionName'" ng-if="search_str && !isLoading">
+
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">{{item.collectionName}} <img src="/images/{{item.src}}.png" alt=""> </h5>
+                          
+                          <p class="card-text" ng-if="item.kind == 'people'">
+                            <strong>Day of birth:</strong> {{item.DOB | date:'mediumDate'}}
+                          </p>
+
+                          <p class="card-text" ng-if="item.kind == 'tv'">
+                            <strong>Premiered:</strong> {{item.show.premiered | date:'mediumDate'}} <br>
+                            <strong>Score:</strong> {{item.score | number:2}} <br>
+                            <img src="{{item.show.image.original}}" alt="">
+                          </p>
+
+
+                          <p class="card-text" ng-if="item.kind == 'feature-movie'">
+                            <strong>Price:</strong> {{item.currency + item.trackPrice}} <br>
+                            <strong>Genere:</strong> {{item.primaryGenreName}} <br>
+                            <img src="{{item.artworkUrl100}}" alt="">
+                          </p>
+
+                          <p class="card-text" ng-if="item.kind == 'song'">
+                            <strong>Artist:</strong> {{item.artistName}} <br>
+                            <strong>Price:</strong> {{item.currency + item.trackPrice}} <br>
+                            <strong>Genere:</strong> {{item.primaryGenreName}} <br>
+                            <img src="{{item.artworkUrl100}}" alt="">
+                          </p>
+
+
+                          <a href="{{item.show._links.self.href}}" target="_blank" class="btn btn-primary" ng-if="item.src == 'tv_maze'">More</a>
+                          <a href="{{item.collectionViewUrl}}" target="_blank" class="btn btn-primary" ng-if="item.src == 'apple'">More</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                            <span class="badge badge-{{item.kind}} float-right">{{item.kind}}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-9 mt-2 offset-xs-3" ng-repeat="item in loading_items" ng-if="isLoading">
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title"> <div class="spinner-grow text-secondary" role="status"> </div> </h5>
+                          
+                          <p class="card-text" >
+                            <div class="spinner-grow text-secondary" role="status"> </div>
+                          </p>
+
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted"><div class="spinner-grow text-secondary" role="status"> </div></small>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+            
+
+            
+            
+        </div>
+
+
+        
+
+        <!-- JavaScript File -->
+        <script src="dist/all.js?cb=1588578293609"></script>
+    </body>
+</html>

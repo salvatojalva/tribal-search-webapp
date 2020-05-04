@@ -1,0 +1,53 @@
+@import "colors";
+
+.card{
+    margin: 0 auto;
+    height: 360px;
+    width: 18rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .card-body{
+        .card-title{
+            img{
+                height: 15px;
+                float: right;
+            }
+        }
+
+        .card-text{
+            img{
+                height: 125px;
+                margin: 0 auto;
+                display: block;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    .card-footer{
+
+        .badge{
+            color: $white;
+
+        }
+
+        .badge-tv{
+            background: $tv;
+        }
+
+        .badge-people{
+            background: $people;
+        }
+
+        .badge-feature-movie{
+            background: $feature-movie;
+        }
+
+        .badge-song{
+            background: $song;
+        }
+    }
+}

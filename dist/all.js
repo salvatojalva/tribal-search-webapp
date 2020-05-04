@@ -1,0 +1,1 @@
+angular.module("tribal",[]).controller("SearchCtrl",["$scope","$http",function(a,t){a.search_str="",a.media=[],a.loading_items=[0,1,2,3,4,5,6,7,8],a.search=function(){a.isLoading=!0,t({method:"GET",url:"http://localhost:8080/api/search/"+a.search_str}).then(function(t){a.media=t.data},function(t){console.error(t)}).finally(function(){a.isLoading=!1})}}]);
