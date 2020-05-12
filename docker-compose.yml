@@ -1,0 +1,9 @@
+version: '3'
+            
+services: 
+    ngapp:
+        build: .
+        ports: 
+            - "8081:82"
+        volumes:
+            - .:/usr/share/nginx/html
